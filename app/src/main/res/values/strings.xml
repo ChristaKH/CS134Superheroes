@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CS134 Superheroes</string>
     <string name="personImageContentDescription">Image of a person</string>
+    <string name="initialQuestionNumber">Question 1 of 10</string>
 </resources>
