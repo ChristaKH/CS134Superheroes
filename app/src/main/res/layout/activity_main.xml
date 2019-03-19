@@ -110,8 +110,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.878"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guessSubjectTextView"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintTop_toBottomOf="@+id/choice2Button"
+        app:layout_constraintVertical_bias="0.236" />
 
     <Button
         android:id="@+id/choice3Button"
@@ -128,8 +128,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guessSubjectTextView"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintTop_toBottomOf="@+id/choice1Button"
+        app:layout_constraintVertical_bias="0.236" />
 
     <TextView
         android:id="@+id/answerTextView"

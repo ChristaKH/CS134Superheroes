@@ -45,9 +45,10 @@ public class JSONLoader {
             Superhero hero;
             for (int i = 0; i < length; i++)
             {
+                System.out.println("Loading");
                 superheroJSON = allSuperheroesJSON.getJSONObject(i);
                 // Extract the name and the region
-                imageName = superheroJSON.getString("ImageName");
+                imageName = superheroJSON.getString("FileName");
                 name = superheroJSON.getString("Name");
                 superpower = superheroJSON.getString("Superpower");
                 oneThing= superheroJSON.getString("OneThing");
