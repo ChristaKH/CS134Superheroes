@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class loads Country data from a formatted JSON (JavaScript Object Notation) file.
- * Populates data model (Country) with data.
+ * Class loads Superhero data from a formatted JSON (JavaScript Object Notation) file.
+ * Populates data model (Superhero) with data.
  */
 public class JSONLoader {
 
@@ -56,10 +56,6 @@ public class JSONLoader {
                 hero = new Superhero(imageName,name,superpower, oneThing);
                 allHeroesList.add(hero);
             }
-
-
-
-
         } catch (JSONException e) {
             Log.e("CS 134 Superheroes", e.getMessage());
         }

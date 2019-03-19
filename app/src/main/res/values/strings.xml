@@ -3,4 +3,5 @@
     <string name="personImageContentDescription">Image of a person</string>
     <string name="initialQuestionNumber">Question 1 of 10</string>
     <string name="temporaryText">Temporary Text</string>
+    <string name="question">Question %1$d of %2$d</string>
 </resources>
