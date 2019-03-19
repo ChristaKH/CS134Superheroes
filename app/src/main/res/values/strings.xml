@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CS134 Superheroes</string>
+    <string name="personImageContentDescription">Image of a person</string>
+</resources>
