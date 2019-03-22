@@ -1,11 +1,15 @@
 package chatch.cs134.cs134superheroes;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button[] mButtons = new Button[4];
     private TextView answerTextView;
     private static final int HEROES_IN_QUIZ = 10;
+    private String setting;
 
     private List<Superhero> allSuperheroesList;  // all the heroes loaded from JSON
     private List<Superhero> mQuizSuperheroList; // superheroes in current quiz (just 10 of them)
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setting = "Name";
         questionNumberTextView = findViewById(R.id.questionNumberTextView);
         personImageView = findViewById(R.id.personImageView);
         guessSubjectTextView = findViewById(R.id.guessSubjectTextView);
@@ -67,10 +73,35 @@ public class MainActivity extends AppCompatActivity {
         resetQuiz();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    // Work on this later
+    /*
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // If item is selected, inflate the settings activity
+        // Only 1 menu option item to click
+        Intent intent = new Intent();
+        return true;
+    }*/
+
     /**
      * Sets up and starts a new quiz.
      */
     public void resetQuiz() {
+
+        if(setting.equalsIgnoreCase("Name")){
+            guessSubjectTextView.setText("Guess the Superhero");
+        } else if(setting.equalsIgnoreCase("Superpower")){
+            guessSubjectTextView.setText("Guess the Superpower");
+        } else{
+            guessSubjectTextView.setText("Guess the One Thing");
+        }
 
         // DONE: Reset the number of correct guesses made
         mCorrectGuesses = 0;
@@ -82,8 +113,7 @@ public class MainActivity extends AppCompatActivity {
         int size = allSuperheroesList.size();
         int randomPosition;
         Superhero randomHero;
-        while(mQuizSuperheroList.size() <= HEROES_IN_QUIZ)
-        {
+        while (mQuizSuperheroList.size() <= HEROES_IN_QUIZ) {
             randomPosition = rng.nextInt(size);
             randomHero = allSuperheroesList.get(randomPosition);
             // Check for duplicates (contains)
@@ -94,8 +124,15 @@ public class MainActivity extends AppCompatActivity {
 
         // Let's set the text of the 4 buttons to the first 4 superhero names
         for (int i = 0; i < mButtons.length; i++)
-            mButtons[i].setText(mQuizSuperheroList.get(i).getName());
-
+        {
+            if (setting.equalsIgnoreCase("Name")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getName());
+            } else if (setting.equalsIgnoreCase("Superpower")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getSuperpower());
+            } else if (setting.equalsIgnoreCase("OneThing")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getOneThing());
+            }
+        }
         // DONE: Ensure no duplicate countries (e.g. don't add a country if it's already in mQuizCountriesList)
 
         // DONE: Start the quiz by calling loadNextFlag
