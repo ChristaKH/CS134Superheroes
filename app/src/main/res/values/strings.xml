@@ -4,4 +4,5 @@
     <string name="initialQuestionNumber">Question 1 of 10</string>
     <string name="temporaryText">Temporary Text</string>
     <string name="question">Question %1$d of %2$d</string>
+    <string name="settingsTitle">Settings</string>
 </resources>
