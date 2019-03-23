@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/personImageView"
         android:layout_width="341dp"
-        android:layout_height="371dp"
+        android:layout_height="307dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -68,6 +68,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryDark"
+        android:onClick="makeGuess"
         android:text="@string/temporaryText"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guessSubjectTextView"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.068" />
 
     <Button
         android:id="@+id/choice2Button"
@@ -86,6 +87,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryDark"
+        android:onClick="makeGuess"
         android:text="@string/temporaryText"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +95,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guessSubjectTextView"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintVertical_bias="0.068" />
 
     <Button
         android:id="@+id/choice4Button"
@@ -104,6 +106,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryDark"
+        android:onClick="makeGuess"
         android:text="@string/temporaryText"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,6 +125,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimaryDark"
+        android:onClick="makeGuess"
         android:text="@string/temporaryText"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +137,7 @@
 
     <TextView
         android:id="@+id/answerTextView"
-        android:layout_width="202dp"
+        android:layout_width="wrap_content"
         android:layout_height="53dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -142,11 +146,11 @@
         android:text="@string/temporaryText"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guessSubjectTextView"
-        app:layout_constraintVertical_bias="0.956" />
+        app:layout_constraintTop_toBottomOf="@+id/choice3Button" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,19 +1,26 @@
 package chatch.cs134.cs134superheroes;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.SecureRandom;
@@ -41,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private int mCorrectGuesses; // number of correct guesses
     private SecureRandom rng; // used to randomize the quiz
     private Handler handler; // used to delay loading next superhero
-
+    private MediaPlayer correctSound;
+    private MediaPlayer incorrectSound;
 
 
     @Override
@@ -49,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        correctSound = MediaPlayer.create(this, R.raw.success);
+        incorrectSound =MediaPlayer.create(this, R.raw.failed);
+        //AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 20, 0);
         setting = "Name";
         questionNumberTextView = findViewById(R.id.questionNumberTextView);
         personImageView = findViewById(R.id.personImageView);
@@ -133,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 mButtons[i].setText(mQuizSuperheroList.get(i).getOneThing());
             }
         }
-        // DONE: Ensure no duplicate countries (e.g. don't add a country if it's already in mQuizCountriesList)
+        // DONE: Ensure no duplicate countries (e.g. don't add a country if it's already in mQuizSuperheroList)
 
         // DONE: Start the quiz by calling loadNextFlag
         loadNextHero();
@@ -147,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         // DONE: Initialize the mCorrectSuperhero by removing the item at position 0 in the mQuizSuperheroes
         mCorrectSuperhero = mQuizSuperheroList.get(0);
         mQuizSuperheroList.remove(0);
+
+
 
         // DONE: Clear the mAnswerTextView so that it doesn't show text from the previous question
         answerTextView.setText("");
@@ -187,5 +201,84 @@ public class MainActivity extends AppCompatActivity {
         // DONE: After the loop, randomly replace one of the 4 buttons with the name of the correct superhero
         mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getName());
 
+    }
+
+    /**
+     * Handles the click event of one of the 4 buttons indicating the guess of a Superhero's trait
+     * to match the Superhero image displayed.  If the guess is correct, the answer (in GREEN) will be shown,
+     * followed by a slight delay of 2 seconds, then the next superhero will be loaded.  Otherwise, the
+     * word "Incorrect Guess" will be shown in RED and the button will be disabled.
+     * @param v
+     */
+    public void makeGuess(View v) {
+        mTotalGuesses++;
+
+        // DONE: Downcast the View v into a Button (since it's one of the 4 buttons)
+        Button clickedButton = (Button) v;
+
+        // DONE: Get the country's name from the text of the button
+        String guess = clickedButton.getText().toString();
+        boolean equals = false;
+        String answer = "";
+        if (setting.equalsIgnoreCase("Name") && guess.equalsIgnoreCase(mCorrectSuperhero.getName())) {
+            equals = true;
+            answer = mCorrectSuperhero.getName();
+        } else if (setting.equalsIgnoreCase("Superpower") && guess.equalsIgnoreCase(mCorrectSuperhero.getSuperpower())) {
+            equals = true;
+            answer = mCorrectSuperhero.getSuperpower();
+        } else if (setting.equalsIgnoreCase("OneThing") && guess.equalsIgnoreCase(mCorrectSuperhero.getOneThing())) {
+            equals = true;
+            answer = mCorrectSuperhero.getOneThing();
+        }
+
+        // DONE: If the guess matches the correct country's name, increment the number of correct guesses,
+        if (equals) {
+            mCorrectGuesses++;
+            correctSound.start();
+            if (mCorrectGuesses < HEROES_IN_QUIZ) {
+                for (int i = 0; i < mButtons.length; i++) {
+                    mButtons[i].setEnabled(false);
+
+                    // Change text to correct answer
+                    answerTextView.setText(answer);
+
+                    // Make text green
+                    answerTextView.setTextColor(getResources().getColor(R.color.correct_answer));
+                }
+                // Call loadNextHero after pausing for 2 seconds = 2000 ms
+                // Use a Handler to delay actions
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextHero();
+                    }
+                }, 2000);
+            } else { // Game over
+                // Create alert dialog with text and some button reset quiz (start new game)
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                double percentage = (double) mCorrectGuesses / mTotalGuesses * 100.0;
+                builder.setMessage(getString(R.string.results, mTotalGuesses, percentage));
+                builder.setPositiveButton(getString(R.string.reset_quiz), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        resetQuiz();
+                    }
+                });
+
+                // Disable the cancel operation (can't cancel dialog)
+                builder.setCancelable(false);
+                // Create dialog
+                builder.create();
+                // SHow dialog
+                builder.show();
+
+            }
+        } else { // Incorrect guess
+            // disable button
+            incorrectSound.start();
+            clickedButton.setEnabled(false);
+            answerTextView.setText(getString(R.string.incorrect_answer));
+            answerTextView.setTextColor(getResources().getColor(R.color.incorrect_answer));
+        }
     }
 }
