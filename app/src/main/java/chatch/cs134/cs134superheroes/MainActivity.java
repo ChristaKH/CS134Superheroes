@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,11 +57,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar mainToolbar = findViewById(R.id.mainToolbar);
+        setSupportActionBar(mainToolbar);
+        getSupportActionBar().setTitle("CS 134 Superheroes");
 
         correctSound = MediaPlayer.create(this, R.raw.success);
         incorrectSound =MediaPlayer.create(this, R.raw.failed);
-        //AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        //audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 20, 0);
+
         setting = "Name";
         questionNumberTextView = findViewById(R.id.questionNumberTextView);
         personImageView = findViewById(R.id.personImageView);
@@ -93,14 +96,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Work on this later
-    /*
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // If item is selected, inflate the settings activity
         // Only 1 menu option item to click
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
         return true;
-    }*/
+    }
+
 
     /**
      * Sets up and starts a new quiz.

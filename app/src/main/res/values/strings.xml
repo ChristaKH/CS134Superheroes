@@ -8,4 +8,5 @@
     <string name="results">%1$d guesses, %2$.01f%% correct</string>
     <string name="reset_quiz">Reset Quiz</string>
     <string name="incorrect_answer">Incorrect!</string>
+    <string name="backTitle">Back</string>
 </resources>
