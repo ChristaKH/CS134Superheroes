@@ -1,3 +1,7 @@
+/**
+ * This is the activity that is responsibly for the user choosing
+ * the settings.
+ */
 package chatch.cs134.cs134superheroes;
 
 import android.content.DialogInterface;

@@ -1,3 +1,7 @@
+/**
+ * This class handles the list items in the list view in the
+ * settings activity
+ */
 package chatch.cs134.cs134superheroes;
 
 import android.app.Activity;
@@ -28,6 +32,12 @@ public class SettingsListAdapter extends ArrayAdapter<Settings> {
     private List<Settings> mSettingsList = new ArrayList<>();
     private int mResourceId;
 
+    /**
+     * Full constructor
+     * @param c
+     * @param rID
+     * @param settings
+     */
     public SettingsListAdapter(Context c, int rID, List<Settings> settings){
         super(c, rID, settings);
         mContext = c;
