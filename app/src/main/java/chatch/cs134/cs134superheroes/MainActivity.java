@@ -60,11 +60,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mainToolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(mainToolbar);
         getSupportActionBar().setTitle("CS 134 Superheroes");
+        setting = "Name";
 
         correctSound = MediaPlayer.create(this, R.raw.success);
-        incorrectSound =MediaPlayer.create(this, R.raw.failed);
+        incorrectSound = MediaPlayer.create(this, R.raw.failed);
 
-        setting = "Name";
+        Intent intent = getIntent();
+        String tempSetting = intent.getStringExtra("Setting");
+        if(tempSetting != null){
+            setting = tempSetting;
+        }
+
         questionNumberTextView = findViewById(R.id.questionNumberTextView);
         personImageView = findViewById(R.id.personImageView);
         guessSubjectTextView = findViewById(R.id.guessSubjectTextView);
@@ -94,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.settings_menu, menu);
         return true;
     }
-
-    // Work on this later
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -196,15 +200,33 @@ public class MainActivity extends AppCompatActivity {
         }while(allSuperheroesList.subList(0, mButtons.length).contains(mCorrectSuperhero));
 
         // DONE: Loop through all 4 buttons, enable them all and set them to the first 4 superheroes
-        for( int i = 0; i< mButtons.length; i++){
+        /*for( int i = 0; i< mButtons.length; i++){
             mButtons[i].setEnabled(true);
             mButtons[i].setText(allSuperheroesList.get(i).getName());
+        }*/
+        for (int i = 0; i < mButtons.length; i++)
+        {
+            mButtons[i].setEnabled(true);
+            if (setting.equalsIgnoreCase("Name")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getName());
+            } else if (setting.equalsIgnoreCase("Superpower")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getSuperpower());
+            } else if (setting.equalsIgnoreCase("OneThing")) {
+                mButtons[i].setText(mQuizSuperheroList.get(i).getOneThing());
+            }
         }
         // DONE: in the all superheroes list
 
 
         // DONE: After the loop, randomly replace one of the 4 buttons with the name of the correct superhero
-        mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getName());
+        if (setting.equalsIgnoreCase("Name")) {
+            mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getName());
+        } else if (setting.equalsIgnoreCase("Superpower")) {
+            mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getSuperpower());
+        } else if (setting.equalsIgnoreCase("OneThing")) {
+            mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getOneThing());
+        }
+        //mButtons[rng.nextInt(mButtons.length)].setText(mCorrectSuperhero.getName());
 
     }
 

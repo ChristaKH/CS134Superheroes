@@ -9,4 +9,6 @@
     <string name="reset_quiz">Reset Quiz</string>
     <string name="incorrect_answer">Incorrect!</string>
     <string name="backTitle">Back</string>
+    <string name="quizType">Quiz Type</string>
+    <string name="quizTypeSummary">Choose superhero name, superpower, or one thing about them</string>
 </resources>
